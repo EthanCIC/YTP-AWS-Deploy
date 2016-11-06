@@ -1,8 +1,13 @@
+sed -i "s/listen 80 default_server;/listen 80;/g" /etc/nginx/sites-available/default
+sed -i "s/listen \[::\]:80 default_server;/listen \[::\]:80;/g" /etc/nginx/sites-available/default
+
 # build rails project nginx config
 cat > /etc/nginx/sites-enabled/project << EOF
 server {
-  listen 80;
-  server_name {{ EC2 PUBLIC-IP }}; # 還沒 domain 的話，先填 IP 位置
+  listen 80 default_server;
+  listen [::]:80 default_server;
+
+  server_name _;
 
   root /home/ubuntu/project/public;
 
@@ -21,7 +26,7 @@ EOF
 
 # deploy project
 cd /home/ubuntu
-git clone {{ YOUR-PROJECT-GITHUB-LINK }} project
+git clone https://github.com/ethan0526/ytp-project.git project
 cd project
 
 bundle install --deployment --without test development

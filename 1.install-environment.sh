@@ -46,11 +46,6 @@ apt-get install -y git
 curl --silent --location https://deb.nodesource.com/setup_6.x | bash -
 apt-get install -y nodejs
 
-# install Bundler, Rails
-gem install bundler --no-ri --no-rdoc
-gem install rails --no-ri --no-rdoc
-
-
 sed -i "s/user www-data;/env PATH;\nuser www-data;/g" /etc/nginx/nginx.conf
 sed -i "s/# include \/etc\/nginx\/passenger.conf;/include \/etc\/nginx\/passenger.conf;/g" /etc/nginx/nginx.conf
 
